@@ -1,0 +1,10 @@
+target
+.settings
+.project
+.DS_Store
+.classpath
+src/META-INF
+.idea/
+*.iml
+/derby.log
+hs_err*
