@@ -22,13 +22,17 @@ class SparseBitmap(indexes: Array[Long], values: Array[Long], val numBuckets: In
     }
   }
 
-  def set(pos: Long, v: Boolean = true): SparseBitmap = {
+  def unset(pos: Long): SparseBitmap = set(pos, active = false)
+  
+  def set(pos: Long): SparseBitmap = set(pos, active = true)
+
+  def set(pos: Long, active: Boolean): SparseBitmap = {
     val bucket = SparseBitmap.bucketFor(pos)
     val indexPos = util.Arrays.binarySearch(indexes, 0, numBuckets, bucket)
 
     val op = SparseBitmap.bucketBitFor(pos)
     if(indexPos < 0) {
-      if(v) {
+      if(active) {
         val splitPosition = Math.abs(indexPos + 1)
         val takeFromRight = indexes.length - splitPosition
 
@@ -50,7 +54,7 @@ class SparseBitmap(indexes: Array[Long], values: Array[Long], val numBuckets: In
       val value = values(indexPos)
 
       val newValues = util.Arrays.copyOf(values, values.length)
-      newValues(indexPos) = if(v) value | op else value ^ op
+      newValues(indexPos) = if(active) value | op else value ^ op
 
       new SparseBitmap(indexes, newValues, newValues.length)
     }
