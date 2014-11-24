@@ -1,94 +1,93 @@
 package br.com.jusbrasil.qbit
 
 import br.com.jusbrasil.qbit.bitmap._
-import org.scalatest.FlatSpec
-import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.{FlatSpec, Matchers}
 
-class BitmapTestCase extends FlatSpec with ShouldMatchers {
-  "BitMap" should "set and get bits" in {
+class BitmapTestCase extends FlatSpec with Matchers {
+  it should "set and get bits" in {
     var bitmap = SparseBitmap()
 
-    bitmap.get(1) should be (false)
-    bitmap.get(2) should be (false)
-    bitmap.get(3) should be (false)
-    bitmap.get(31) should be (false)
-    bitmap.get(32) should be (false)
-    bitmap.get(33) should be (false)
-    bitmap.get(1231231231321123l) should be (false)
+    bitmap.get(1) shouldBe false
+    bitmap.get(2) shouldBe false
+    bitmap.get(3) shouldBe false
+    bitmap.get(31) shouldBe false
+    bitmap.get(32) shouldBe false
+    bitmap.get(33) shouldBe false
+    bitmap.get(1231231231321123l) shouldBe false
     bitmap.iterator.toList should be (Nil)
 
     bitmap = bitmap.set(1)
-    bitmap.get(1) should be (true)
-    bitmap.get(2) should be (false)
-    bitmap.get(3) should be (false)
-    bitmap.get(31) should be (false)
-    bitmap.get(32) should be (false)
-    bitmap.get(33) should be (false)
-    bitmap.get(1231231231321123l) should be (false)
+    bitmap.get(1) shouldBe true
+    bitmap.get(2) shouldBe false
+    bitmap.get(3) shouldBe false
+    bitmap.get(31) shouldBe false
+    bitmap.get(32) shouldBe false
+    bitmap.get(33) shouldBe false
+    bitmap.get(1231231231321123l) shouldBe false
     bitmap.iterator.toList should be (List(1))
 
     bitmap = bitmap.set(2)
-    bitmap.get(1) should be (true)
-    bitmap.get(2) should be (true)
-    bitmap.get(3) should be (false)
-    bitmap.get(31) should be (false)
-    bitmap.get(32) should be (false)
-    bitmap.get(33) should be (false)
-    bitmap.get(1231231231321123l) should be (false)
+    bitmap.get(1) shouldBe true
+    bitmap.get(2) shouldBe true
+    bitmap.get(3) shouldBe false
+    bitmap.get(31) shouldBe false
+    bitmap.get(32) shouldBe false
+    bitmap.get(33) shouldBe false
+    bitmap.get(1231231231321123l) shouldBe false
     bitmap.iterator.toList should be (List(1, 2))
 
     bitmap = bitmap.set(3)
-    bitmap.get(1) should be (true)
-    bitmap.get(2) should be (true)
-    bitmap.get(3) should be (true)
-    bitmap.get(31) should be (false)
-    bitmap.get(32) should be (false)
-    bitmap.get(33) should be (false)
-    bitmap.get(1231231231321123l) should be (false)
+    bitmap.get(1) shouldBe true
+    bitmap.get(2) shouldBe true
+    bitmap.get(3) shouldBe true
+    bitmap.get(31) shouldBe false
+    bitmap.get(32) shouldBe false
+    bitmap.get(33) shouldBe false
+    bitmap.get(1231231231321123l) shouldBe false
     bitmap.iterator.toList should be (List(1, 2, 3))
 
     bitmap = bitmap.set(31)
-    bitmap.get(1) should be (true)
-    bitmap.get(2) should be (true)
-    bitmap.get(3) should be (true)
-    bitmap.get(31) should be (true)
-    bitmap.get(32) should be (false)
-    bitmap.get(33) should be (false)
-    bitmap.get(1231231231321123l) should be (false)
+    bitmap.get(1) shouldBe true
+    bitmap.get(2) shouldBe true
+    bitmap.get(3) shouldBe true
+    bitmap.get(31) shouldBe true
+    bitmap.get(32) shouldBe false
+    bitmap.get(33) shouldBe false
+    bitmap.get(1231231231321123l) shouldBe false
     bitmap.iterator.toList should be (List(1, 2, 3, 31))
 
     bitmap = bitmap.set(1231231231321123l)
-    bitmap.get(1) should be (true)
-    bitmap.get(2) should be (true)
-    bitmap.get(3) should be (true)
-    bitmap.get(31) should be (true)
-    bitmap.get(32) should be (false)
-    bitmap.get(33) should be (false)
-    bitmap.get(1231231231321123l) should be (true)
+    bitmap.get(1) shouldBe true
+    bitmap.get(2) shouldBe true
+    bitmap.get(3) shouldBe true
+    bitmap.get(31) shouldBe true
+    bitmap.get(32) shouldBe false
+    bitmap.get(33) shouldBe false
+    bitmap.get(1231231231321123l) shouldBe true
     bitmap.iterator.toList should be (List(1, 2, 3, 31, 1231231231321123l))
 
     bitmap = bitmap.set(33)
-    bitmap.get(1) should be (true)
-    bitmap.get(2) should be (true)
-    bitmap.get(3) should be (true)
-    bitmap.get(31) should be (true)
-    bitmap.get(32) should be (false)
-    bitmap.get(33) should be (true)
-    bitmap.get(1231231231321123l) should be (true)
+    bitmap.get(1) shouldBe true
+    bitmap.get(2) shouldBe true
+    bitmap.get(3) shouldBe true
+    bitmap.get(31) shouldBe true
+    bitmap.get(32) shouldBe false
+    bitmap.get(33) shouldBe true
+    bitmap.get(1231231231321123l) shouldBe true
     bitmap.iterator.toList should be (List(1, 2, 3, 31, 33, 1231231231321123l))
 
     bitmap = bitmap.set(32)
-    bitmap.get(1) should be (true)
-    bitmap.get(2) should be (true)
-    bitmap.get(3) should be (true)
-    bitmap.get(31) should be (true)
-    bitmap.get(32) should be (true)
-    bitmap.get(33) should be (true)
-    bitmap.get(1231231231321123l) should be (true)
+    bitmap.get(1) shouldBe true
+    bitmap.get(2) shouldBe true
+    bitmap.get(3) shouldBe true
+    bitmap.get(31) shouldBe true
+    bitmap.get(32) shouldBe true
+    bitmap.get(33) shouldBe true
+    bitmap.get(1231231231321123l) shouldBe true
     bitmap.iterator.toList should be (List(1, 2, 3, 31, 32, 33, 1231231231321123l))
   }
 
-  "BitMap" should "support and" in {
+  it should "support and" in {
     val a = SparseBitmap(Array[Long](1, 2, 3, 31, 32, 33, 1000))
     val b = SparseBitmap(Array[Long](3, 31, 32, 33, 9999))
     val and = BitmapOperator.and(Array(a, b))
@@ -102,7 +101,23 @@ class BitmapTestCase extends FlatSpec with ShouldMatchers {
     and3.iterator.toList should be (List(31, 33))
   }
 
-  "BitMap" should "support or" in {
+  it should "support andNot" in {
+    val a = SparseBitmap(Array[Long](1, 2, 3, 31, 32, 33, 1000, 10000))
+    val b = SparseBitmap(Array[Long](3, 31, 32, 33, 9999))
+    val res1 = BitmapOperator.andNot(a, b)
+    res1.iterator.toList should be (List(1, 2, 1000, 10000))
+
+    val res2 = BitmapOperator.andNot(a, SparseBitmap())
+    res2.iterator.toList should be (List(1, 2, 3, 31, 32, 33, 1000, 10000))
+
+    val res3 = BitmapOperator.andNot(a, a)
+    res3.iterator.toList shouldBe empty
+
+    val res4 = BitmapOperator.andNot(SparseBitmap(), a)
+    res4.iterator.toList shouldBe empty
+  }
+
+  it should "support or" in {
     val a = SparseBitmap(Array[Long](1, 2, 3, 31, 32, 33, 1000))
     val b = SparseBitmap(Array[Long](3, 31, 32, 33, 9999))
     val or = BitmapOperator.or(Array(a, b))
@@ -116,7 +131,7 @@ class BitmapTestCase extends FlatSpec with ShouldMatchers {
     or3.iterator.toList should be (List(1, 2, 3, 31, 32, 33, 1000, 9999, 10000))
   }
 
-  "BitMap" should "support xor" in {
+  it should "support xor" in {
     val a = SparseBitmap(Array[Long](1, 2, 3, 31, 32, 33, 1000))
     val b = SparseBitmap(Array[Long](3, 31, 32, 33, 9999))
     val xor = BitmapOperator.xor(Array(a, b))
@@ -126,7 +141,7 @@ class BitmapTestCase extends FlatSpec with ShouldMatchers {
     xor2.iterator.toList should be (b.iterator.toList)
   }
 
-  "BitMap" should "support cardinality count" in {
+  it should "support cardinality count" in {
     val a = SparseBitmap(Array[Long](1, 2, 3, 31, 32, 33, 1000))
     val b = SparseBitmap(Array[Long](3, 31, 32, 33, 9999))
     val c = SparseBitmap(Array[Long](1, 2, 33, 9999, 10000))

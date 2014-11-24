@@ -8,24 +8,56 @@ object BitmapOperator {
   def xor(indexes: Array[SparseBitmap]) = apply(general2x2(_ ^ _))(indexes)
 
   private def apply(fn: (SparseBitmap, SparseBitmap) => SparseBitmap)(indexes: Array[SparseBitmap]) = {
-    val pq = new PriorityQueue[SparseBitmap](indexes.length, new Comparator[SparseBitmap] {
+    val priorityQueue = new PriorityQueue[SparseBitmap](indexes.length, new Comparator[SparseBitmap] {
       def compare(o1: SparseBitmap, o2: SparseBitmap): Int = o1.numBuckets.compareTo(o2.numBuckets)
     })
 
-    indexes.foreach{ idx =>
+    indexes.foreach { idx =>
       if (idx.numBuckets > 0) {
-        pq.add(idx)
+        priorityQueue.add(idx)
       }
     }
 
-    while(pq.size() > 1) {
-      val idx1 = pq.poll()
-      val idx2 = pq.poll()
+    while(priorityQueue.size() > 1) {
+      val idx1 = priorityQueue.poll()
+      val idx2 = priorityQueue.poll()
 
-      pq.add(fn(idx1, idx2))
+      priorityQueue.add(fn(idx1, idx2))
     }
 
-    pq.poll()
+    priorityQueue.poll()
+  }
+
+  def andNot(mainIdx: SparseBitmap, andNotIdx: SparseBitmap): SparseBitmap = {
+    if(Math.min(mainIdx.numBuckets, andNotIdx.numBuckets) == 0) {
+      mainIdx
+    } else {
+      val estimatedSize = Math.min(mainIdx.numBuckets, andNotIdx.numBuckets)
+      val fastBitmap = new FastBitmap(estimatedSize)
+
+      val mainIt = mainIdx.dataIterator
+      val negatedIt = andNotIdx.dataIterator
+
+      while(mainIt.hasNext && negatedIt.hasNext) {
+        mainIt.compareTo(negatedIt) match {
+          case -1 =>
+            fastBitmap.fastAdd(mainIt.currentIdx, mainIt.currentValue)
+            mainIt.moveForward()
+
+          case 1 =>
+            negatedIt.moveForward()
+
+          case _ =>
+            fastBitmap.fastAdd(mainIt.currentIdx, mainIt.currentValue & (~negatedIt.currentValue))
+            negatedIt.moveForward()
+            mainIt.moveForward()
+        }
+      }
+
+      consumeAllRemain(mainIt, fastBitmap)
+
+      fastBitmap.finalBitmap()
+    }
   }
 
   private def and2x2(idx1: SparseBitmap, idx2: SparseBitmap): SparseBitmap = {
