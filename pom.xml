@@ -16,12 +16,15 @@
     <revision>SNAPSHOT</revision>
 
     <akka.version>2.3.7</akka.version>
-    <bijection.version>0.7.0</bijection.version>
+    <bijection.version>0.6.2</bijection.version>
+    <finagle.base.version>6.18.0</finagle.base.version>
+    <finch.version>0.1.6</finch.version>
     <log4j.version>1.2.17</log4j.version>
     <scala.version>2.10.4</scala.version>
     <scalatest.version>2.2.2</scalatest.version>
     <storehaus.version>0.9.0</storehaus.version>
     <slf4j.version>1.7.7</slf4j.version>
+    <twitter.server.version>1.7.2</twitter.server.version>
   </properties>
 
   <repositories>
@@ -29,6 +32,12 @@
       <id>twttr</id>
       <name>twttr</name>
       <url>http://maven.twttr.com</url>
+    </repository>
+
+    <repository>
+      <id>Finch.io</id>
+      <name>Finch.io</name>
+      <url>http://repo.konfettin.ru</url>
     </repository>
   </repositories>
 
@@ -80,6 +89,42 @@
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
       <version>${slf4j.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io</groupId>
+      <artifactId>finch_2.10</artifactId>
+      <version>${finch.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.twitter</groupId>
+      <artifactId>twitter-server_2.10</artifactId>
+      <version>${twitter.server.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.twitter</groupId>
+      <artifactId>finagle-core_2.10</artifactId>
+      <version>${finagle.base.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.twitter</groupId>
+      <artifactId>finagle-http_2.10</artifactId>
+      <version>${finagle.base.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.twitter</groupId>
+      <artifactId>finagle-stats_2.10</artifactId>
+      <version>${finagle.base.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.twitter</groupId>
+      <artifactId>util-core_2.10</artifactId>
+      <version>${finagle.base.version}</version>
     </dependency>
 
     <dependency>

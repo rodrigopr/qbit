@@ -13,8 +13,9 @@ class Indexer(numWorkers: Int) {
 
   private val actorSystem = ActorSystem("index")
 
+
   private val indexWorkers = actorSystem.actorOf(
-    ConsistentHashingPool(nrOfInstances = 10).props(Props[IndexActor].withMailbox("bounded-mailbox")),
+    ConsistentHashingPool(numWorkers).props(Props[IndexActor].withMailbox("bounded-mailbox")),
     "workers-pool"
   )
 

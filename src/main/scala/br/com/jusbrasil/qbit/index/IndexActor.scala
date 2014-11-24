@@ -13,6 +13,7 @@ class IndexActor extends Actor {
 
   def receive = {
     case IndexBatchTask(indexName, tasks) =>
+      logger.info(s"Received: $indexName, $tasks")
       val response = processBatch(indexName, tasks)
 
       // TODO: it should be totally asynchronous!
