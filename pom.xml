@@ -12,7 +12,16 @@
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
     <encoding>UTF-8</encoding>
+
+    <revision>SNAPSHOT</revision>
+
+    <akka.version>2.3.7</akka.version>
+    <bijection.version>0.7.0</bijection.version>
+    <log4j.version>1.2.17</log4j.version>
     <scala.version>2.10.4</scala.version>
+    <scalatest.version>2.2.2</scalatest.version>
+    <storehaus.version>0.9.0</storehaus.version>
+    <slf4j.version>1.7.7</slf4j.version>
   </properties>
 
   <repositories>
@@ -33,44 +42,50 @@
     <dependency>
       <groupId>com.twitter</groupId>
       <artifactId>bijection-core_2.10</artifactId>
-      <version>0.7.0</version>
+      <version>${bijection.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.twitter</groupId>
+      <artifactId>storehaus-core_2.10</artifactId>
+      <version>${storehaus.version}</version>
     </dependency>
 
     <dependency>
       <groupId>com.twitter</groupId>
       <artifactId>storehaus-redis_2.10</artifactId>
-      <version>0.9.0</version>
+      <version>${storehaus.version}</version>
     </dependency>
 
     <dependency>
       <groupId>com.typesafe.akka</groupId>
       <artifactId>akka-actor_2.10</artifactId>
-      <version>2.3.7</version>
+      <version>${akka.version}</version>
       <scope>compile</scope>
     </dependency>
 
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
-      <version>1.2.17</version>
+      <version>${log4j.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>1.7.7</version>
+      <version>${slf4j.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
-      <version>1.7.7</version>
+      <version>${slf4j.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.scalatest</groupId>
       <artifactId>scalatest_2.10</artifactId>
-      <version>2.2.2</version>
+      <version>${scalatest.version}</version>
       <scope>test</scope>
     </dependency>
 
