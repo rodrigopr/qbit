@@ -24,7 +24,7 @@ package object query {
   /**
    * Will return all values in the bitmap
    */
-  object ReturnAll extends QueryAction
+  object Return extends QueryAction
 
   /**
    * Will return the result only partially,
@@ -32,7 +32,7 @@ package object query {
    *
    * @param limit - maximum of values to return
    */
-  case class ReturnPartial(limit: Int) extends QueryAction
+  case class Take (limit: Int) extends QueryAction
 
 
   /**

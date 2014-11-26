@@ -4,12 +4,12 @@ import org.scalatest.{Matchers, FlatSpec}
 import scala.util.Success
 
 class QueryParserTestCase extends FlatSpec with Matchers {
-  "Query parser" should "parse simple return-all statements" in {
+  "Query parser" should "parse simple take-all statements" in {
     val source = """ RETURN aaa AND bbb """
     
     runParser(source) shouldBe
       Query(
-        ReturnAll,
+        Return,
         And(
           IndexRef("aaa"),
           IndexRef("bbb")
@@ -17,12 +17,12 @@ class QueryParserTestCase extends FlatSpec with Matchers {
       )
   }
 
-  it should "parse simple return-partial statements" in {
-    val source = """ RETURN 50 FROM aaa AND bbb """
+  it should "parse simple take-partial statements" in {
+    val source = """ TAKE 50 FROM aaa AND bbb """
     
     runParser(source) shouldBe
       Query(
-        ReturnPartial(50),
+        Take(50),
         And(
           IndexRef("aaa"),
           IndexRef("bbb")
@@ -48,7 +48,7 @@ class QueryParserTestCase extends FlatSpec with Matchers {
 
     runParser(source) shouldBe
       Query(
-        ReturnAll,
+        Return,
         And(
           And(IndexRef("aaa"), IndexRef("bbb")),
           IndexRef("ccc")
@@ -61,7 +61,7 @@ class QueryParserTestCase extends FlatSpec with Matchers {
 
     runParser(source) shouldBe
       Query(
-        ReturnAll,
+        Return,
         Or(
           And(IndexRef("aaa"), IndexRef("bbb")),
           And(IndexRef("ccc"), IndexRef("ddd"))
@@ -74,7 +74,7 @@ class QueryParserTestCase extends FlatSpec with Matchers {
 
     runParser(source) shouldBe
       Query(
-        ReturnAll,
+        Return,
         Or(
           IndexRef("aaa"),
           And(
@@ -90,7 +90,7 @@ class QueryParserTestCase extends FlatSpec with Matchers {
 
     runParser(source) shouldBe
       Query(
-        ReturnAll,
+        Return,
         And(
           Or(
             IndexRef("aaa"),
@@ -106,7 +106,7 @@ class QueryParserTestCase extends FlatSpec with Matchers {
 
     runParser(source) shouldBe
       Query(
-        ReturnAll,
+        Return,
         Or(
           IndexRef("aaa"),
           Index(1l, -10l, 2l, 1000l, 3l, 99294967296l)
@@ -115,11 +115,11 @@ class QueryParserTestCase extends FlatSpec with Matchers {
   }
 
   it should "parse complex query" in {
-    val source = """ RETURN 5 FROM ((aaa OR [1, -10, 2,1000,3, 99294967296]) AND NOT bbb) OR (ccc XOR ddd) """
+    val source = """ TAKE 5 FROM ((aaa OR [1, -10, 2,1000,3, 99294967296]) AND NOT bbb) OR (ccc XOR ddd) """
 
     runParser(source) shouldBe
       Query(
-        ReturnPartial(5),
+        Take(5),
         Or(
           AndNot(
             Or(

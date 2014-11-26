@@ -20,13 +20,13 @@ object Parser extends JavaTokenParsers {
 
 
   // Actions
-  private def action: Parser[QueryAction] = count | returnPartial | returnAll
+  private def action: Parser[QueryAction] = count | take | returnAll
 
   private def count: Parser[QueryAction] = "count" ^^^ Count
 
-  private def returnPartial: Parser[QueryAction] = ("return" ~> intNumber <~ "from") ^^ { limit ⇒ ReturnPartial(limit) }
+  private def take: Parser[QueryAction] = ("take" ~> intNumber <~ "from") ^^ { limit ⇒ Take(limit) }
 
-  private def returnAll: Parser[QueryAction] = "return" ^^^ ReturnAll
+  private def returnAll: Parser[QueryAction] = "return" ^^^ Return
 
 
   // Operations
